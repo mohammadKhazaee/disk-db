@@ -8,8 +8,9 @@ export namespace Number_ {
 
     export type Whole = Branded<Integer, 'Whole'>;
     export namespace Whole {
-      export const is = (x: unknown): x is Whole =>
-        Number.isInteger(x) && typeof x === 'number' && x >= 0;
+      export const is = (x: unknown): x is Whole => {
+        return Number.isInteger(x) && typeof x === 'number' && x >= 0;
+      };
     }
 
     export type Natural = Branded<Integer, 'Natural'>;

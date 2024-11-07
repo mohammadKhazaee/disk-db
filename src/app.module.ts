@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { RecordsModule } from './Collections/Records/records.module';
 import { CommonModule } from './common/common.module';
 import { ConfigModule } from '@nestjs/config';
@@ -10,6 +10,6 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({ isGlobal: true, cache: true }),
   ],
   controllers: [],
-  providers: [],
+  providers: [Logger],
 })
 export class AppModule {}

@@ -16,9 +16,7 @@ export class CollectionsController {
 
   @Post()
   @HttpCode(201)
-  postCollection(
-    @Body() createCollectionDto: CreateCollectionDto,
-  ): Promise<any> {
+  postCollection(@Body() createCollectionDto: CreateCollectionDto) {
     return this.collectionService.createCollection(
       createCollectionDto.collectionName,
     );
@@ -26,7 +24,7 @@ export class CollectionsController {
 
   @Delete('/:collectionName')
   @HttpCode(200)
-  deleteCollection(@Param() { collectionName }: CollectionNameDto): any {
+  deleteCollection(@Param() { collectionName }: CollectionNameDto) {
     return this.collectionService.deleteCollection(collectionName);
   }
 }

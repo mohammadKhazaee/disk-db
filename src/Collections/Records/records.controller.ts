@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { CollectionNameDto } from '../dto/collection-name.dto';
 import { FindRecordDto } from '../dto/find-record.dto';
-import { PaginationQueryTranformer } from 'src/Common/pipes/pagination-query.pipe';
-import { Number_ } from 'src/Common/types/number.type';
 import { RecordsService } from './records.service';
 import { NonEmptyObjectDto } from './dto/non-empty-object.dto';
+import { PaginationQueryTranformer } from '../../Common/pipes/pagination-query.pipe';
+import { Number_ } from '../../Common/types/number.type';
 
 @Controller('collections/:collectionName/records')
 export class RecordsController {

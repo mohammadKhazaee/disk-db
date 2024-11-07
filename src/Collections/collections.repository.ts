@@ -12,26 +12,11 @@ import {
   VerifiedCollectionName,
 } from './types/colection-name.type';
 import { NonEmptyObject } from 'src/Common/types/object.type';
-import { FileStorage } from 'src/common/FileStorage/FileStorage';
+import { FileStorage } from '../Common/FileStorage/FileStorage';
 
 @Injectable()
 export class CollectionRepository implements ICollectionRepository {
-  private readonly FILE_EXENSION = process.env.SDD_STORE_TYPE ?? 'json';
-  private readonly MAX_RECORD_PER_FILE = 100;
-  private readonly dirPath: string;
-
-  constructor(private readonly fileStorage: FileStorage<Record>) {
-    console.log('Connected to SDD.');
-
-    this.dirPath = path.join(
-      path.dirname(require.main.filename),
-      '..',
-      'src',
-      'Common',
-      'data',
-      'collection_files',
-    );
-  }
+  constructor(private readonly fileStorage: FileStorage<Record>) {}
 
   async verifyCollectionName(
     name: ValidCollectionName,
@@ -103,7 +88,7 @@ export class CollectionRepository implements ICollectionRepository {
     );
 
     if (targedRecordIndex === -1)
-      throw new InternalServerErrorException('not found record id');
+      throw new InternalServerErrorException({ cause: 'not found record id' });
 
     const updatedRecord = {
       ...records[targedRecordIndex],
@@ -134,7 +119,7 @@ export class CollectionRepository implements ICollectionRepository {
     );
 
     if (targedRecordIndex === -1)
-      throw new InternalServerErrorException('not found record id');
+      throw new InternalServerErrorException({ cause: 'not found record id' });
 
     const updatedRecords = [
       ...records.slice(0, targedRecordIndex),
@@ -187,7 +172,7 @@ export class CollectionRepository implements ICollectionRepository {
   }): Promise<Record[]> {
     const records = await this.fileStorage.read(collectionName.value);
 
-    return records.slice(skip, limit);
+    return records.slice(skip, skip + limit);
   }
 
   async doesRecordExist({

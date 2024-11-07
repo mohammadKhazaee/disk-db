@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CollectionRepository } from './collections.repository';
 import { ValidCollectionName } from './types/colection-name.type';
 
@@ -25,7 +29,7 @@ export class CollectionsService {
     const result = await this.collectionRepo.verifyCollectionName(name);
 
     if (result._tag === 'NonExisted')
-      throw new ForbiddenException("this collection doesn't exists");
+      throw new NotFoundException("this collection doesn't exists");
 
     return result;
   }

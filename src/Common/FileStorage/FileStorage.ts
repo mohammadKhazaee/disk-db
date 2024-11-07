@@ -23,7 +23,9 @@ export class FileStorage<T> {
       'src',
       'Common',
       'data',
-      'collection_files',
+      configService.get('NODE_ENV') === 'test'
+        ? 'test_collection_files'
+        : 'collection_files',
     );
 
     this.FILE_EXENSION = this.configService.get('SDD_STORE_TYPE');

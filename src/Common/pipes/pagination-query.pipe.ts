@@ -7,10 +7,10 @@ export class PaginationQueryTranformer implements PipeTransform {
     if (metadata.type !== 'query') return value;
 
     if (metadata.data === 'skip')
-      return Number_.Integer.Whole.is(value) ? +value : 0;
+      return Number_.Integer.Whole.is(+value) ? +value : 0;
 
     if (metadata.data === 'limit')
-      return Number_.Integer.Natural.is(value) ? +value : 10;
+      return Number_.Integer.Natural.is(+value) ? +value : 10;
 
     return value;
   }
